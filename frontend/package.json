@@ -12,6 +12,9 @@
     "test": "ng test --watch=false",
     "serve:ssr:frontend": "node dist/frontend/server/server.mjs"
   },
+  "engines": {
+    "node": ">=24.15.0 <25"
+  },
   "private": true,
   "packageManager": "npm@10.9.8",
   "dependencies": {
