@@ -1,0 +1,38 @@
+<main class="min-h-screen bg-base-200/60 px-5 py-8 sm:px-8 lg:px-12">
+    <div class="mx-auto max-w-7xl">
+        <header class="mb-10 flex flex-col gap-6 border-b border-base-300 pb-8 md:flex-row md:items-end md:justify-between">
+            <div>
+                <p class="mb-3 font-display text-sm font-bold uppercase tracking-[0.2em] text-primary">Leituras</p>
+                <h1 class="font-display text-4xl font-bold tracking-tight text-base-content sm:text-5xl">Sua biblioteca,<br /><span class="text-primary">em movimento.</span></h1>
+                <p class="mt-4 max-w-lg text-base-content/65">Acompanhe o que você já leu, está lendo e quer descobrir depois.</p>
+            </div>
+            <div class="flex items-center gap-3">
+                <button class="btn btn-primary" type="button" (click)="abrirCadastro()">Adicionar livro</button>
+                <div class="stats border border-base-300 bg-base-100 shadow-sm">
+                <div class="stat px-6 py-4">
+                    <div class="stat-title">Na estante</div>
+                    <div class="stat-value text-primary">{{ livros().length }}</div>
+                    <div class="stat-desc">livros registrados</div>
+                </div>
+                </div>
+            </div>
+        </header>
+
+        @if (formularioAberto()) {
+            <section class="mb-8 border border-base-300 bg-base-100 p-6 shadow-sm">
+                <h2 class="mb-5 font-display text-2xl font-bold">{{ livroEmEdicao() ? 'Editar livro' : 'Novo livro' }}</h2>
+                <app-formulario-livro [livro]="livroEmEdicao()" (salvar)="salvarLivro($event)" (cancelar)="fecharFormulario()" />
+            </section>
+        }
+
+        <app-filtro-livros [busca]="busca()" [categoria]="categoria()" [status]="status()" [categorias]="categorias()" [statuses]="statuses()"
+            (buscaChange)="busca.set($event)" (categoriaChange)="categoria.set($event)" (statusChange)="status.set($event)" />
+
+        <div class="mb-4 flex items-center justify-between">
+            <h2 class="font-display text-xl font-bold">Todos os livros</h2>
+            <span class="text-sm text-base-content/55">{{ livrosFiltrados().length }} encontrados</span>
+        </div>
+
+        <app-lista-livros [livros]="livrosFiltrados()" (editar)="editarLivro($event)" (remover)="removerLivro($event)" />
+    </div>
+</main>

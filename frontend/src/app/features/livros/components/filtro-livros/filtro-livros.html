@@ -1,0 +1,16 @@
+<section class="mb-8 flex flex-col gap-3 sm:flex-row" aria-label="Filtros da biblioteca">
+	<label class="input input-bordered flex w-full items-center gap-3 bg-base-100 sm:max-w-md">
+		<span class="text-lg text-base-content/45" aria-hidden="true">⌕</span>
+		<input type="search" class="grow" placeholder="Buscar por título ou autor" [value]="busca()" (input)="atualizarBusca($event)" />
+	</label>
+	<select class="select select-bordered w-full bg-base-100 sm:w-52" [value]="categoria()" (change)="atualizarCategoria($event)" aria-label="Filtrar por categoria">
+		@for (opcao of categorias(); track opcao) {
+			<option [value]="opcao">{{ opcao }}</option>
+		}
+	</select>
+	<select class="select select-bordered w-full bg-base-100 sm:w-52" [value]="status()" (change)="atualizarStatus($event)" aria-label="Filtrar por status">
+		@for (opcao of statuses(); track opcao) {
+			<option [value]="opcao">{{ opcao }}</option>
+		}
+	</select>
+</section>

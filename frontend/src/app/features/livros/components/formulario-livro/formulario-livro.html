@@ -1,0 +1,40 @@
+<form class="grid gap-4" [formGroup]="formulario" (ngSubmit)="enviar()">
+	<label class="form-control">
+		<span class="label-text">ID</span>
+		<input class="input input-bordered w-full" type="number" min="1" formControlName="id" />
+	</label>
+	<div class="grid gap-4 sm:grid-cols-2">
+		<label class="form-control">
+			<span class="label-text">Titulo</span>
+			<input class="input input-bordered w-full" formControlName="titulo" />
+		</label>
+		<label class="form-control">
+			<span class="label-text">Autor</span>
+			<input class="input input-bordered w-full" formControlName="autor" />
+		</label>
+		<label class="form-control">
+			<span class="label-text">Categoria</span>
+			<input class="input input-bordered w-full" formControlName="categoria" />
+		</label>
+		<label class="form-control">
+			<span class="label-text">Ano</span>
+			<input class="input input-bordered w-full" type="number" min="0" formControlName="ano" />
+		</label>
+		<label class="form-control">
+			<span class="label-text">Status</span>
+			<select class="select select-bordered w-full" formControlName="status">
+				<option>Lido</option>
+				<option>Lendo</option>
+				<option>Quero ler</option>
+			</select>
+		</label>
+	</div>
+	<label class="form-control">
+		<span class="label-text">Descricao</span>
+		<textarea class="textarea textarea-bordered min-h-24 w-full" formControlName="descricao"></textarea>
+	</label>
+	<div class="flex justify-end gap-3">
+		<button class="btn btn-ghost" type="button" (click)="cancelar.emit()">Cancelar</button>
+		<button class="btn btn-primary" type="submit">Salvar livro</button>
+	</div>
+</form>

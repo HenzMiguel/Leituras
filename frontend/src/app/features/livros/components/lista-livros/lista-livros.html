@@ -1,0 +1,12 @@
+@if (livros().length) {
+	<div class="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
+		@for (livro of livros(); track livro.id) {
+			<app-livro-card [livro]="livro" [compacto]="true" (editar)="editar.emit($event)" (remover)="remover.emit($event)" />
+		}
+	</div>
+} @else {
+	<div class="rounded-box border border-dashed border-base-300 bg-base-100 px-6 py-16 text-center">
+		<p class="font-display text-xl font-bold">Nenhum livro encontrado</p>
+		<p class="mt-2 text-sm text-base-content/60">Tente outro título, autor ou categoria.</p>
+	</div>
+}
