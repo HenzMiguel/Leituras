@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { describe, expect, it, vi } from 'vitest';
+import { describe, expect, it, vi, beforeEach } from 'vitest';
 import { FormularioLivro } from './formulario-livro';
 
 describe('FormularioLivro', () => {
@@ -25,7 +25,7 @@ describe('FormularioLivro', () => {
     const salvar = vi.fn();
     fixture.componentInstance.salvar.subscribe(salvar);
     const campos = fixture.nativeElement.querySelectorAll('input, textarea, select');
-    const valores = ['8', 'Ensaio', 'Autora', 'Categoria', '2020', 'Lendo', 'Descricao'];
+    const valores = ['Ensaio', 'Autora', 'Categoria', '2020', 'Lendo', 'Descricao'];
 
     campos.forEach((campo: HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement, indice: number) => {
       campo.value = valores[indice];
@@ -35,7 +35,6 @@ describe('FormularioLivro', () => {
     fixture.nativeElement.querySelector('form').dispatchEvent(new Event('submit'));
 
     expect(salvar).toHaveBeenCalledWith({
-      id: 8,
       titulo: 'Ensaio',
       autor: 'Autora',
       categoria: 'Categoria',

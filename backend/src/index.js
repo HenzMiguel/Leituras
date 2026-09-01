@@ -43,7 +43,10 @@ export function createApp(collection) {
 
   router.post("/livros", async (req, res) => {
     try {
-      const resultado = await collection.insertOne(req.body);
+      const [livroComMaiorId] = await collection.find().sort({ id: -1 }).limit(1).toArray();
+      const novoId = livroComMaiorId ? livroComMaiorId.id + 1 : 1;
+      const novoLivro = { ...req.body, id: novoId };
+      const resultado = await collection.insertOne(novoLivro);
       const livro = await collection.findOne({ _id: resultado.insertedId });
       res.status(201).json(livro);
     } catch (error) {

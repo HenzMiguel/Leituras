@@ -7,9 +7,24 @@ function makeCollection(data = []) {
 
   return {
     find: () => ({
-      sort: () => ({
-        toArray: async () => [...items].sort((a, b) => a.id - b.id)
-      })
+      sort: (sortObj = {}) => {
+        const getSorted = () => {
+          const res = [...items];
+          if (sortObj.id === -1) {
+            res.sort((a, b) => b.id - a.id);
+          } else {
+            res.sort((a, b) => a.id - b.id);
+          }
+          return res;
+        };
+
+        return {
+          limit: (n) => ({
+            toArray: async () => getSorted().slice(0, n)
+          }),
+          toArray: async () => getSorted()
+        };
+      }
     }),
     findOne: async ({ id, _id }) => {
       if (_id) {
@@ -98,7 +113,6 @@ test('POST /api/livros deve criar o livro e PUT/DELETE devem atualizar e remover
 
   try {
     const livroNovo = {
-      id: 2,
       titulo: 'O Avesso da Pele',
       autor: 'Jeferson Tenório',
       categoria: 'Ficção',
@@ -115,6 +129,7 @@ test('POST /api/livros deve criar o livro e PUT/DELETE devem atualizar e remover
 
     assert.equal(postResponse.status, 201);
     const livroCriado = await postResponse.json();
+    assert.equal(livroCriado.id, 2);
     assert.equal(livroCriado.titulo, 'O Avesso da Pele');
 
     const putResponse = await fetch(`http://localhost:${port}/api/livros/2`, {

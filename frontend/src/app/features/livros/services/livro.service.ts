@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { catchError, of } from 'rxjs';
 import { environment } from '../../../environment';
-import { Livro } from '../models/livro';
+import { Livro, NovoLivro } from '../models/livro';
 
 const API_URL = environment.apiUrl;
 
@@ -18,11 +18,11 @@ export class LivroService {
 		return this.http.get<Livro>(`${API_URL}/${id}`).pipe(catchError(() => of(undefined)));
 	}
 
-	criar(livro: Livro) {
+	criar(livro: NovoLivro) {
 		return this.http.post<Livro>(API_URL, livro);
 	}
 
-	atualizar(id: number, livro: Livro) {
+	atualizar(id: number, livro: NovoLivro) {
 		return this.http.put<Livro>(`${API_URL}/${id}`, livro);
 	}
 

@@ -2,7 +2,7 @@ import { Component, computed, inject, signal } from '@angular/core';
 import { FiltroLivros } from '../../components/filtro-livros/filtro-livros';
 import { FormularioLivro } from '../../components/formulario-livro/formulario-livro';
 import { ListaLivros } from '../../components/lista-livros/lista-livros';
-import { Livro } from '../../models/livro';
+import { Livro, NovoLivro } from '../../models/livro';
 import { LivroService } from '../../services/livro.service';
 
 @Component({
@@ -47,7 +47,7 @@ export class LivrosPage {
     this.formularioAberto.set(true);
   }
 
-  protected salvarLivro(livro: Livro) {
+  protected salvarLivro(livro: NovoLivro) {
     const livroEmEdicao = this.livroEmEdicao();
     const requisicao = livroEmEdicao
       ? this.livroService.atualizar(livroEmEdicao.id, livro)

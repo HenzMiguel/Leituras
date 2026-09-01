@@ -1,6 +1,6 @@
 import { Component, effect, inject, input, output } from '@angular/core';
 import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Livro } from '../../models/livro';
+import { Livro, NovoLivro } from '../../models/livro';
 
 @Component({
   imports: [ReactiveFormsModule],
@@ -10,12 +10,11 @@ import { Livro } from '../../models/livro';
 })
 export class FormularioLivro {
   readonly livro = input<Livro>();
-  readonly salvar = output<Livro>();
+  readonly salvar = output<NovoLivro>();
   readonly cancelar = output<void>();
 
   private readonly formBuilder = inject(NonNullableFormBuilder);
   protected readonly formulario = this.formBuilder.group({
-    id: [0, [Validators.required, Validators.min(1)]],
     titulo: ['', Validators.required],
     autor: ['', Validators.required],
     categoria: ['', Validators.required],
@@ -27,8 +26,14 @@ export class FormularioLivro {
   constructor() {
     effect(() => {
       const livro = this.livro();
-      this.formulario.reset(livro ?? {
-        id: 0,
+      this.formulario.reset(livro ? {
+        titulo: livro.titulo,
+        autor: livro.autor,
+        categoria: livro.categoria,
+        ano: livro.ano,
+        status: livro.status,
+        descricao: livro.descricao ?? '',
+      } : {
         titulo: '',
         autor: '',
         categoria: '',

@@ -7,3 +7,5 @@ export interface Livro {
   status: string;
   descricao?: string;
 }
+
+export type NovoLivro = Omit<Livro, 'id'>;
